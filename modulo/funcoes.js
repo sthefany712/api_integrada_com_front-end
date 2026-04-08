@@ -22,11 +22,12 @@ const listaContatos = require('./contatos.js')
     return dados
  }
 
- getContaPerfilUsuario(number)
+ getContaPerfilUsuario("11987876567")
  function getContaPerfilUsuario(numeroPerfil) {
 
+    let status = false
+
     let perfil = { 
-        //dados : [], 
         nome: '',
         nick: '',
         dadosConta: {
@@ -36,24 +37,81 @@ const listaContatos = require('./contatos.js')
         foto: '',
         numero: '',
         imagem: '',
-        corDeFundo: '',
-        
+        corDeFundo: '', 
     }
 
     listaContatos.contatos["whats-users"].forEach(usuarioPerfil => {
-        //perfil.dados.push(usuarioPerfil)
-        console.log(numeroPerfil);
         
-        if(numeroPerfil == usuarioPerfil.number)
+        if(numeroPerfil == usuarioPerfil.number){
             perfil.numero = usuarioPerfil.number
-        // perfil.nome = usuarioPerfil.account
-        // perfil.nick = usuarioPerfil.nickname
-        // perfil.dadosConta = usuarioPerfil.start
-        // perfil.foto = usuarioPerfil.profile-image
+            perfil.nome = usuarioPerfil.account
+            perfil.nick = usuarioPerfil.nickname
+            perfil.dadosConta.inicio = usuarioPerfil['created-since'].start
+            perfil.dadosConta.fim = usuarioPerfil['created-since'].end
+            perfil.foto = usuarioPerfil["profile-image"]
+            perfil.corDeFundo = usuarioPerfil.background
 
-    });
-    // console.log(perfil);
-    
-    
+            usuarioPerfil.contacts.forEach(img => {
+                perfil.imagem = img.image
+                status = true
+            })
+        }
+    })
 
+    if (status){
+        return perfil
+    }else
+        return false
+ }
+
+ getDadosPessoais("11966578996")
+ function getDadosPessoais(numeroDadosPessoais) {
+
+    let status = false
+
+    let dadosP = {
+
+        nome: '',
+        foto: '',
+        descricao: '',
+    }
+
+    listaContatos.contatos["whats-users"].forEach(pessoaisDados => {
+     
+        if(numeroDadosPessoais == pessoaisDados.number){
+            
+            pessoaisDados.contacts.forEach(adquirindoDados => {
+            dadosP.nome = adquirindoDados.name,
+            dadosP.foto =  adquirindoDados.image,
+            dadosP.descricao = adquirindoDados.description
+            status = true
+            })
+        }
+    })
+
+    if(status){
+        return dadosP
+    }else
+        return false
+ }
+
+ getConversas( "11987876567")
+ function getConversas(numMensagem) {
+
+    let conversa = {
+        msgm: ''
+    }
+
+    listaContatos.contatos["whats-users"].forEach(mensagens => {
+        // console.log(mensagens);
+        
+        if(numMensagem == mensagens.number){
+
+            mensagens.contacts.forEach(acessandoMsgm => {
+                conversa.msgm = acessandoMsgm.messages
+                //console.log(mensagens);
+                 console.log(conversa);
+            })
+        }
+    })
  }
