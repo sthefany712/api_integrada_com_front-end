@@ -36,7 +36,6 @@ const listaContatos = require('./contatos.js')
         },
         foto: '',
         numero: '',
-        imagem: '',
         corDeFundo: '', 
     }
 
@@ -50,68 +49,96 @@ const listaContatos = require('./contatos.js')
             perfil.dadosConta.fim = usuarioPerfil['created-since'].end
             perfil.foto = usuarioPerfil["profile-image"]
             perfil.corDeFundo = usuarioPerfil.background
+        }
+    })
+  
+    if (status) {
+        return perfil
+    } else
+        return false
+ }
 
-            usuarioPerfil.contacts.forEach(img => {
-                perfil.imagem = img.image
+ getDadosPessoais("11987876567")
+ function getDadosPessoais(numeroDadosPessoais) {
+
+    let status = false
+
+    let lista = []
+
+    listaContatos.contatos["whats-users"].forEach(pessoaisDados => {
+     
+        if(numeroDadosPessoais == pessoaisDados.number){
+         
+            pessoaisDados.contacts.forEach(adquirindoDados => {
+
+                let dadosP = {
+                    nome: adquirindoDados.name,
+                    foto: adquirindoDados.image,
+                    descricao: adquirindoDados.description
+                }
+
+                lista.push(dadosP)
                 status = true
             })
         }
     })
 
-    if (status){
-        return perfil
+    if(status){
+        return lista
     }else
         return false
  }
 
- getDadosPessoais("11966578996")
- function getDadosPessoais(numeroDadosPessoais) {
+ getConversas("11966578996")
+ function getConversas(numMensagem) {
 
     let status = false
 
-    let dadosP = {
-
-        nome: '',
-        foto: '',
-        descricao: '',
+    let conversa = {
+        conta: '',
+        mensagens: []
     }
 
-    listaContatos.contatos["whats-users"].forEach(pessoaisDados => {
-     
-        if(numeroDadosPessoais == pessoaisDados.number){
-            
-            pessoaisDados.contacts.forEach(adquirindoDados => {
-            dadosP.nome = adquirindoDados.name,
-            dadosP.foto =  adquirindoDados.image,
-            dadosP.descricao = adquirindoDados.description
-            status = true
+    listaContatos.contatos["whats-users"].forEach(msgm => {
+    
+        if(numMensagem == msgm.number){
+            conversa.conta = msgm.account
+
+            msgm.contacts.forEach(acessandoContatos => {
+                conversa.mensagens = acessandoContatos.messages
+
+                acessandoContatos.messages.forEach(acessandoMgm => {
+                    conversa.mensagens.push(acessandoMgm)
+                    status = true
+                })
             })
-        }
+        }     
     })
 
-    if(status){
-        return dadosP
-    }else
+    if(status) {
+        return conversa
+    } else
         return false
  }
 
- getConversas( "11987876567")
- function getConversas(numMensagem) {
+ 
+ getConversa("11987876567", "Ana Maria")
+ 
+ function getConversa(numeroParametro,nomeParametro) {
 
-    let conversa = {
-        msgm: ''
-    }
 
-    listaContatos.contatos["whats-users"].forEach(mensagens => {
-        // console.log(mensagens);
+    listaContatos.contatos['whats-users'].forEach(contato => { //prestar atenção no mome das variáveis
         
-        if(numMensagem == mensagens.number){
-
-            mensagens.contacts.forEach(acessandoMsgm => {
-                conversa.msgm = acessandoMsgm.messages
-                //console.log(mensagens);
-                 console.log(conversa);
-            })
+        
+        if(numeroParametro == contato.number){ 
+            console.log(contato);
+            
         }
     })
  }
+
+
+
+
+//É sempre muito importante analisar bem cada situação para saber qual caminho tomar,
+//nem todas as funções serão iguais, pois cada caso é um.
