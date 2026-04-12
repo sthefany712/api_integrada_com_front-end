@@ -109,6 +109,7 @@ const listaContatos = require('./contatos.js')
 
                 acessandoContatos.messages.forEach(acessandoMgm => {
                     conversa.mensagens.push(acessandoMgm)
+
                     status = true
                 })
             })
@@ -121,21 +122,66 @@ const listaContatos = require('./contatos.js')
         return false
  }
 
- 
  getConversa("11987876567", "Ana Maria")
  
  function getConversa(numeroParametro,nomeParametro) {
 
+    let status = false
+
+    let dadosUsuario = {
+        nomeUsuario: '',
+        numero: '',
+        nomeContato: '',  
+        conversa: []
+    }
+
+    // let palavraChave = {
+    //     palavra: []
+    // }
+
 
     listaContatos.contatos['whats-users'].forEach(contato => { //prestar atenção no mome das variáveis
-        
-        
-        if(numeroParametro == contato.number){ 
-            console.log(contato);
-            
+
+        if(numeroParametro == contato.number){
+            dadosUsuario.nomeUsuario = contato.account
+            dadosUsuario.numero = contato.number
+
+            contato.contacts.forEach(contatoNome => {
+                if(nomeParametro == contatoNome.name){
+                    dadosUsuario.nomeContato = contatoNome.name
+                    contatoNome.messages.forEach(contatoMensagem => {
+                        dadosUsuario.conversa.push(contatoMensagem)
+
+                        // contatoMensagem.content.forEach(contatoFiltro => {
+                        //     // palavraChave.palavra.push(contatoFiltro.)
+                        // })
+
+                        console.log(contatoMensagem);
+                        
+                        status = true      
+
+
+
+                        // const filtroPalavras = palavraChave.filter((palavra) => 
+                        //     palavra.length == palavraChave)
+
+                        // console.log(filtroPalavras);
+                        
+                    })
+                }
+            })
         }
     })
+
+    // if(status){
+    //     return dadosUsuario
+    // }else
+    //     return false
  }
+
+//  function getPesquisaPalavraChave() {
+
+//  }
 
 
 
