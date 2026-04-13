@@ -5,6 +5,7 @@
  * Versão: 1.0
  ********************************************************************************************************/
 
+const { json } = require('body-parser');
 const listaContatos = require('./contatos.js')
 //  console.log(listaContatos)
 
@@ -135,11 +136,6 @@ const listaContatos = require('./contatos.js')
         conversa: []
     }
 
-    // let palavraChave = {
-    //     palavra: []
-    // }
-
-
     listaContatos.contatos['whats-users'].forEach(contato => { //prestar atenção no mome das variáveis
 
         if(numeroParametro == contato.number){
@@ -149,42 +145,53 @@ const listaContatos = require('./contatos.js')
             contato.contacts.forEach(contatoNome => {
                 if(nomeParametro == contatoNome.name){
                     dadosUsuario.nomeContato = contatoNome.name
+
                     contatoNome.messages.forEach(contatoMensagem => {
                         dadosUsuario.conversa.push(contatoMensagem)
-
-                        // contatoMensagem.content.forEach(contatoFiltro => {
-                        //     // palavraChave.palavra.push(contatoFiltro.)
-                        // })
-
-                        console.log(contatoMensagem);
-                        
                         status = true      
-
-
-
-                        // const filtroPalavras = palavraChave.filter((palavra) => 
-                        //     palavra.length == palavraChave)
-
-                        // console.log(filtroPalavras);
-                        
                     })
                 }
             })
         }
     })
 
-    // if(status){
-    //     return dadosUsuario
-    // }else
-    //     return false
+    if(status) {
+        return dadosUsuario
+    } else
+        return false
  }
 
-//  function getPesquisaPalavraChave() {
+getPesquisaPalavraChave('you')
 
-//  }
+ function getPesquisaPalavraChave(palavraChave) {
+   
+    let dados = getConversa("11987876567", "Ana Maria")
 
+    if(palavraChave != ""){
 
+        const msgmFiltrada = dados.conversa.filter(palavra => {
+            return palavra.content.toLowerCase().includes(palavraChave.toLowerCase())
+        })
+    
+        if(msgmFiltrada.length == 0) {
+            return false
+        } else {
+            return {
+                mensagens: msgmFiltrada   
+            }
+        }
+          
+    } else 
+        return false
+ }
 
-
+module.exports = {
+    getDadosUsuario,
+    getContaPerfilUsuario,
+    getDadosPessoais,
+    getConversas,
+    getPesquisaPalavraChave
+}
 //É sempre muito importante analisar bem cada situação para saber qual caminho tomar,
 //nem todas as funções serão iguais, pois cada caso é um.
+
