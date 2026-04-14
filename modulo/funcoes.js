@@ -50,14 +50,18 @@ const listaContatos = require('./contatos.js')
             perfil.dadosConta.fim = usuarioPerfil['created-since'].end
             perfil.foto = usuarioPerfil["profile-image"]
             perfil.corDeFundo = usuarioPerfil.background
+
+            status = true
         }
     })
-  
+    
+    
     if (status) {
         return perfil
     } else
-        return false
+        return false  
  }
+
 
  getDadosPessoais("11987876567")
  function getDadosPessoais(numeroDadosPessoais) {
@@ -189,6 +193,7 @@ module.exports = {
     getDadosUsuario,
     getContaPerfilUsuario,
     getDadosPessoais,
+    getConversa,
     getConversas,
     getPesquisaPalavraChave
 }
