@@ -23,7 +23,7 @@
 
     const listaContatos = require('./modulo/funcoes.js')
 
-    app.get ('/v1/whatsapp/dadosUsuario', function (request, response){
+    app.get ('/v1/whatsapp/dadosUsuario', function (request, response) {
 
         let dadosUsuario = listaContatos.getDadosUsuario()
 
@@ -31,7 +31,7 @@
         response.json(dadosUsuario)
     })
 
-    app.get('/v1/whatsapp/perfilUsuario/:numeroPerfil', function (request, response){
+    app.get('/v1/whatsapp/perfilUsuario/:numeroPerfil', function (request, response) {
 
         let perfil = request.params.numeroPerfil
         let perfilUsuario = listaContatos.getContaPerfilUsuario(perfil)
@@ -45,7 +45,7 @@
         }
     })
 
-    app.get('/v1/whatsapp/dadosPessoais/:numeroDadosPessoais', function (request, response){
+    app.get('/v1/whatsapp/dadosPessoais/:numeroDadosPessoais', function (request, response) {
 
         let dadosP = request.params.numeroDadosPessoais
         let funcaoDadosP = listaContatos.getDadosPessoais(dadosP)
@@ -59,56 +59,53 @@
         }
     })
 
-     app.get('/v1/whatsapp/conversas/:numeroConversas', function (request, response){
+     app.get('/v1/whatsapp/conversas/:numeroConversas', function (request, response) {
 
         let conversas = request.params.numeroConversas
-        let funcaoConversas = listaContatos. getConversas(conversas)
+        let funcaoConversas = listaContatos.getConversas(conversas)
         
          if(funcaoConversas){
             response.status(200)
             response.json(funcaoConversas)
         }else{
-            response.json({"message": "O numero informado não foi encontrado"})
+           
             response.status(404)
         }
     })
 
-     app.get('/v1/whatsapp/conversa/:numeroParametro', function (request, response){
+     app.get('/v1/whatsapp/:numeroParametro/conversa', function (request, response) {
+        let contato = request.query.contato;
+        let numero = request.params.numeroParametro;
         
-        let conversa = request.params.numeroParametro
-        let funcaoConversa = listaContatos.getConversa(conversa)
+        if(!contato || !numero) {
+            response.json({"message": "Erro"})
+            response.status(404)
+            return false
+        }
         
-         if(funcaoConversa){
-            response.status(200)
-            response.json(funcaoConversa)
+        let conversa = listaContatos.getConversa(numero, contato)
+         
+        if(conversa) { 
+            response.status(200);
+            response.json(conversa);
         }else{
-            response.json({"message": "O numero informado não foi encontrado"})
+            response.json({"message": "Conversa não encontrada"})
             response.status(404)
         }
-       
-        
+
     })
 
-    //  app.get('/v1/whatsapp/nome/', function (request,response){
-    //         let conversaNome = request.query.conversaNome
-    //         let nome = listaContatos.getConversa(conversaNome)
-
-    //         if(nome){
-    //         response.status(200)
-    //         response.json(funcaoConversas)
-    //     }else{
-    //         response.json({"message": "O numero informado não foi encontrado"})
-    //         response.status(404)
-    //     }
-    // })
-
-
-
-
+    app.get('/v1/whatsapp/filtro', function (request, response) {
+        
+        let palavraChave = request.query 
+        console.log(palavraChave);
+        
+        let filtro 
+    })
 
 
     app.listen(8080, function(){
-        console.log('API funcionando e aguardando novas requisições ...')
+         console.log('API funcionando e aguardando novas requisições ...')
     })
 
 

@@ -7,9 +7,8 @@
 
 const { json } = require('body-parser');
 const listaContatos = require('./contatos.js')
-//  console.log(listaContatos)
 
- getDadosUsuario()
+ //getDadosUsuario()
  function getDadosUsuario() {
     
     let dados = { 
@@ -23,7 +22,7 @@ const listaContatos = require('./contatos.js')
     return dados
  }
 
- getContaPerfilUsuario("11987876567")
+ //getContaPerfilUsuario("11987876567")
  function getContaPerfilUsuario(numeroPerfil) {
 
     let status = false
@@ -63,7 +62,7 @@ const listaContatos = require('./contatos.js')
  }
 
 
- getDadosPessoais("11987876567")
+ //getDadosPessoais("11987876567")
  function getDadosPessoais(numeroDadosPessoais) {
 
     let status = false
@@ -94,7 +93,7 @@ const listaContatos = require('./contatos.js')
         return false
  }
 
- getConversas("11966578996")
+ //getConversas("11966578996")
  function getConversas(numMensagem) {
 
     let status = false
@@ -127,7 +126,7 @@ const listaContatos = require('./contatos.js')
         return false
  }
 
- getConversa("11987876567", "Ana Maria")
+ //getConversa("11966578996", "Ana Maria")
  
  function getConversa(numeroParametro,nomeParametro) {
 
@@ -161,15 +160,16 @@ const listaContatos = require('./contatos.js')
 
     if(status) {
         return dadosUsuario
-    } else
+    } else {
         return false
+    }
  }
 
-getPesquisaPalavraChave('you')
+// getPesquisaPalavraChave('you')
 
- function getPesquisaPalavraChave(palavraChave) {
+ function getPesquisaPalavraChave(palavraChave, numero, nome) {
    
-    let dados = getConversa("11987876567", "Ana Maria")
+    let dados = getConversa(numero, nome)
 
     if(palavraChave != ""){
 
