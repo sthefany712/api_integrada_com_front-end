@@ -36,10 +36,10 @@
         let perfil = request.params.numeroPerfil
         let perfilUsuario = listaContatos.getContaPerfilUsuario(perfil)
 
-        if(perfilUsuario){
+        if(perfilUsuario) {
             response.status(200)
             response.json(perfilUsuario)
-        }else{
+        } else {
             response.status(404)
             response.json({"message": "O numero informado não foi econtrado"})
         }
@@ -50,10 +50,10 @@
         let dadosP = request.params.numeroDadosPessoais
         let funcaoDadosP = listaContatos.getDadosPessoais(dadosP)
         
-         if(funcaoDadosP){
+         if(funcaoDadosP) {
             response.status(200)
             response.json(funcaoDadosP)
-        }else{
+        } else {
             response.status(404)
             response.json({"message": "O numero informado não foi encontrado"})
         }
@@ -89,7 +89,7 @@
         if(conversa) { 
             response.status(200);
             response.json(conversa);
-        }else{
+        } else {
             response.status(404)
             response.json({"message": "Conversa não encontrada"})
         }
@@ -100,11 +100,11 @@
         
         //Recebe os dados 
         let numeroPalavraChave = request.params.numeroPalavraChave //params envia na URL
-        let {nome, palavraChave} = request.query                             //query vem depois do ? na URL
+        let {nome, palavraChave} = request.query                   //query vem depois do ? na URL
         //let palavraChave = request.query.palavraChave
 
         //Validação
-        if(!palavraChave || !nome || !numeroPalavraChave){
+        if(!palavraChave || !nome || !numeroPalavraChave) {
             response.status(400)
             response.json({"message": "Erro"})
             return
@@ -117,13 +117,13 @@
         if(filtro) { 
             response.status(200);
             response.json(filtro);
-        }else{
+        } else {
             response.json({"message": "Palavra não encontrada"})
             response.status(404)
         }
     })
 
-    app.get('/v1/whatsapp/help', function(request, response){
+    app.get('/v1/whatsapp/help', function(request, response) {
         let docAPI = {
             "API-description": "API para manipular dados do whatsapp",
             "date": "2026-04-16",
