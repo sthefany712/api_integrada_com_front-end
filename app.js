@@ -4,8 +4,8 @@
  * Autor: Sthefany Correia
  * Versão: 1.0
  * 
-*   Vamos ultilizar a biblioteca EXPRESS
-   Buscar no npm que tem todas as dependencias para ser instaladas no node
+ * Vamos ultilizar a biblioteca EXPRESS
+ * Buscar no npm que tem todas as dependencias para ser instaladas no node  
  ********************************************************************************************************/
 
     const express   = require('express')
